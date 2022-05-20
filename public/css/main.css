@@ -1,0 +1,15 @@
+:root {
+    --color1: #abd699;
+    --color2: #75c9b7;
+    --color3: #16123f;
+    --color4:  #1E392A;
+}
+
+.container-fluid{
+    background-color: var(--color2);
+}
+
+.logo{
+    margin-top: 1%;
+    width: 80%;
+}
