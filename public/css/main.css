@@ -5,8 +5,14 @@
     --color4:  #1E392A;
 }
 
+html, body {
+    height: 100%;
+    background-color: var(--color2);
+}
+
 .container-fluid{
     background-color: var(--color2);
+    height: 100%;
 }
 
 .logo{

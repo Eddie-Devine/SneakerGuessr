@@ -14,7 +14,7 @@ CORE STYLES
     position: relative;
 
     display: block;
-    border: solid black;
+    /* border: solid black; */
   }
   
   .toggle__input{
