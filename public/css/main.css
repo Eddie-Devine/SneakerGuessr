@@ -14,8 +14,3 @@ html, body {
     background-color: var(--color2);
     height: 100%;
 }
-
-.logo{
-    margin-top: 1%;
-    width: 80%;
-}
