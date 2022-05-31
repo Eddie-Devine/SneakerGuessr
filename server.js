@@ -47,6 +47,6 @@ wss.on('connection', connection => {
 //     console.log(products);
 // });
 
-// sneaks.getProductPrices("GX9662", function(err, product){
-//     console.log(product);
-// });
+sneaks.getProductPrices("GX9662", function(err, product){
+    console.log(product);
+});
