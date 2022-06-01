@@ -3,6 +3,11 @@
     --color2: #75c9b7;
     --color3: #16123f;
     --color4:  #1E392A;
+
+    --grade1: linear-gradient(to right, #5b3afd, #ff8bff);
+    --grade2: linear-gradient(to right, #0186ef, #00f9e1);
+    --grade3: linear-gradient(to right, #8f4195, #f04462);
+    --grade4: linear-gradient(to right, #00d482, #a7ff6d);
 }
 
 html, body {

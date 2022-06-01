@@ -1,0 +1,55 @@
+/* div {
+    border: solid black;
+} */
+
+.logo{
+    margin-top: 1%;
+    width: 60%;
+}
+
+.progressRow {
+    height: 8%;
+}
+
+.progressBar {
+    border: 3px solid #000;
+    border-radius: 30px;
+    height: 40px;
+    margin: 0 auto;
+    width: 90%;
+    padding: 2px;
+    margin-top: 1%;
+}
+
+.bar {
+    background-image: var(--grade4);
+    height: 100%;
+    width: 60%;
+    border-radius: 16px;
+    transition: width 1s;
+}
+
+.sneakerImage {
+    width: 80%;
+    border: 10px solid black;
+    border-radius: 30px;
+}
+
+.bar:hover {
+    width: 70%;
+}
+
+.guessrRow {
+    margin-top: 15px;
+}
+
+.textBox {
+    font-size: 30px;
+    outline: none;
+    border: none;
+    padding: 1%;
+    border-radius: 0.4rem;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+}

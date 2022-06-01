@@ -7,12 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/checkbox.css">
-        <link rel="stylesheet" href="css/startscreen.css">
-        <link rel="stylesheet" href="css/button.css">
+        <link rel="stylesheet" href="css/priceGame.css">
 
-        <script src="js/sneakers.js" type="text/javascript"></script>
-        <script defer src="js/startscreen.js" type="text/javascript"></script>
+        <script defer src="js/priceGame.js"></script>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -29,25 +26,30 @@
                 <div class="col-lg-4"></div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-2 checkboxes"></div>
-                <div class="col-lg-2 checkboxes"></div>
-                <div class="col-lg-2 checkboxes"></div>
-                <div class="col-lg-2 checkboxes"></div>
-                <div class="col-lg-2 checkboxes"></div>
-                <div class="col-lg-2 checkboxes"></div>
-           </div>
+            <div class="row progressRow">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="progressBar">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
 
-            <div class="row gamemodes">
-                <div class="col-lg-4">
-                    <a href="/name"><button class="start start-btn">GUESS NAME</button></a>
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <img class="sneakerImage mx-auto d-block" src="https://images.stockx.com/images/Air-Jordan-1-Mid-Diamond-Shorts-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1645637189">
                 </div>
+                <div class="col-lg-3"></div>
+            </div>
+
+            <div class="row guessrRow">
+                <div class="col-lg-4"></div>
                 <div class="col-lg-4">
-                    <a href="/price"><button class="start start-btn">GUESS PRICE</button></a>
+                    <input type="text" class="textBox" placeholder="$"></input>
                 </div>
-                <div class="col-lg-4">
-                    <button class="start start-btn">GUESS RELEASE</button>
-                </div>
+                <div class="col-lg-4"></div>
             </div>
         </div>
     </body>
