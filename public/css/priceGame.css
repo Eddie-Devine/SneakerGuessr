@@ -1,6 +1,6 @@
-div {
-    border: solid black 1px;
-}
+/* div {
+    border: solid green 1px;
+} */
 
 .logo{
     margin-top: 1%;
@@ -54,10 +54,6 @@ div {
     margin-right: 15%;
 }
 
-.numPadRow {
-
-}
-
-.num {
-    text-align: center;
+.keyPadRow {
+    margin-top: 1%;
 }
