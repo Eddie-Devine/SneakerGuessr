@@ -19,11 +19,15 @@ sneakers.forEach(sneaker => {
     }
 });
 
-document.querySelector('.start').addEventListener('click', () => {
-    let selectedShoes = [];
-    document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
-        if(checkbox.checked) selectedShoes.push(checkbox.name);
+const startButtons = document.querySelectorAll('.start');
+for(let i = 0; i < 3; i++){ //used for loop to know which link to redirect to (based off of i)
+    startButtons[i].addEventListener('click', () => {
+        let selectedShoes = [];
+        document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+            if(checkbox.checked) selectedShoes.push(checkbox.name);
+        });
+        //underscores added for consistancy when reading saved shoes
+        document.cookie = '_' + selectedShoes.join('_') + '_';
+        if(i == 1) window.location.replace('/price');
     });
-    //underscores added for consistancy when reading saved shoes
-    document.cookie = '_' + selectedShoes.join('_') + '_';
-});
+}

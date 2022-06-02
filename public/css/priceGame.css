@@ -1,6 +1,6 @@
-/* div {
-    border: solid black;
-} */
+div {
+    border: solid black 1px;
+}
 
 .logo{
     margin-top: 1%;
@@ -24,7 +24,7 @@
 .bar {
     background-image: var(--grade4);
     height: 100%;
-    width: 60%;
+    width: 0%;
     border-radius: 16px;
     transition: width 1s;
 }
@@ -52,4 +52,12 @@
     width: 70%;
     margin-left: 15%;
     margin-right: 15%;
+}
+
+.numPadRow {
+
+}
+
+.num {
+    text-align: center;
 }
