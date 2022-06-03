@@ -17,17 +17,17 @@ app.get('/name', (req, res) => res.sendFile(path.join(__dirname, 'public', 'name
 app.get('/price', (req, res) => res.sendFile(path.join(__dirname, 'public', 'priceGame.html')));
 
 //request sneaker data
-// app.get('/sneaker', (req, res) => {
-//     const sneaker = req.query.sneaker + ' '; //added space to sort out non perfect matches
+app.get('/sneaker', (req, res) => {
+    const sneaker = req.query.sneaker + ' '; //added space to sort out non perfect matches
 
-//     sneaks.getProducts(sneaker, 10, function(err, products){
-//         const random = Math.floor(Math.random() * products.length);
-//         const selectedSneaker = products[random];
-//         console.log(selectedSneaker);
+    sneaks.getProducts(sneaker, 10, function(err, products){
+        const random = Math.floor(Math.random() * products.length);
+        const selectedSneaker = products[random];
+        console.log(selectedSneaker);
 
-//         res.status(200).send(JSON.stringify(selectedSneaker));
-//     });
-// });
+        res.status(200).send(JSON.stringify(selectedSneaker));
+    });
+});
 
 //start listening for requests
 const port = process.env.PORT || 8080;

@@ -29,14 +29,23 @@
     transition: width 1s;
 }
 
+.nameRow {
+    padding: 0;
+}
+
+.name {
+    font-family: roboto;
+    text-align: center;
+    font-size: 3vh;
+    font-weight: bold;
+    margin: 0;
+    color: black;
+}
+
 .sneakerImage {
     width: 80%;
     border: 10px solid black;
     border-radius: 30px;
-}
-
-.bar:hover {
-    width: 70%;
 }
 
 .guessrRow {
@@ -56,4 +65,10 @@
 
 .keyPadRow {
     margin-top: 1%;
+}
+
+@media screen and (min-width: 400px) {
+    body {
+      background-color: lightgreen;
+    }
 }
