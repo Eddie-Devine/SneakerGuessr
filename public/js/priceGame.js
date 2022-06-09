@@ -4,6 +4,8 @@ if('ontouchstart' in document.documentElement) keyPadRow.classList.remove('d-non
 document.addEventListener('touchstart', event => keyPadRow.classList.remove('d-none')); //if user touches screen reveal touchpad
 
 const newSneaker = () => {
+    sneakerImage.src = '/images/Loading.gif';
+    sneakerName.innerText = 'Loading...';
     textBox.value = '';
     if(!sneakerList.length) return alert('done!'); //end game when out of sneakers
     console.log(sneakerList);
@@ -25,17 +27,21 @@ const checkGuess = () => {
 
     let guess = textBox.value;
 
-    const minGuess = price - 30;
-    const maxGuess = price + 30;
+    const minGuess = price - 20;
+    const maxGuess = price + 20;
 
-    if(guess <= maxGuess && guess >= minGuess){
-        alert('yes!');
+    if(guess <= maxGuess && guess >= minGuess){ //guess is in range
         allowGuess = false; //do not take more guesses for now
         sneakerList.shift(); //remove guessed sneaker from list
         progressBar.style.width = `${(5 - sneakerList.length)*20}%`;
         newSneaker();
     }
-    else alert('no!');
+    else if(guess < minGuess){ //guess it too low
+        alert('too low');
+    }
+    else{ //guess is too high
+        alert('too high');
+    }
 }
 
 const progressBar = document.querySelector('.bar')
