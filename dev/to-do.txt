@@ -1,5 +1,4 @@
 make game refreshable (cookies?)
-make guess feedback animation (position relative to image) red and green, up or down animation
 add game finished screen shoes with name, description, price, image, time. total time, play again, share (link to buy screen?)
 name game (sort out all fluff)
 year game (year range)

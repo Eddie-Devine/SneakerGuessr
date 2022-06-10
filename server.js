@@ -4,6 +4,7 @@ const sneaks = new SneaksAPI();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const cookieParser = require('cookie-parser');
 
 //read sneakers.json
 let allowedSneakers;
@@ -15,14 +16,27 @@ fs.readFile('sneakers.json', (err, data) => {
 
 //server setup
 const app = express();
-const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 //routes for files
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', res => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/name', (req, res) => res.sendFile(path.join(__dirname, 'public', 'nameGame.html')));
-app.get('/price', (req, res) => res.sendFile(path.join(__dirname, 'public', 'priceGame.html')));
+
+app.get('/js/sneakers.js', (req, res) => {
+    let sneakerStr = '';
+    allowedSneakers.forEach(sneaker => sneakerStr += `'${sneaker}', `);
+    res.status(200).send(`const sneakers = [${sneakerStr}];`);
+});
+
+app.get('/price', (req, res) => {
+    console.log(req.cookies.sneakers);
+    //console.log((req.cookies.sneakers.match(/_/g) < 6));
+    if(!req.cookies.sneakers || (req.cookies.sneakers.match(/_/g).length < 6)){ //if sneakers cookie does not exist or sneaker cookie is less than 5 sneakers
+
+        return res.redirect('/'); //send user to start screen
+    }
+    res.sendFile(path.join(__dirname, 'public', 'priceGame.html'));
+});
 
 //request sneaker data
 app.get('/sneaker', (req, res) => {

@@ -23,11 +23,33 @@ const startButtons = document.querySelectorAll('.start');
 for(let i = 0; i < 3; i++){ //used for loop to know which link to redirect to (based off of i)
     startButtons[i].addEventListener('click', () => {
         let selectedShoes = [];
-        document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+        const checkboxes = document.querySelectorAll('input[type=checkbox]')
+        checkboxes.forEach(checkbox => {
             if(checkbox.checked) selectedShoes.push(checkbox.name);
         });
+        if(selectedShoes.length < 5){
+            Swal.fire({
+                text: 'Please select more than 5 sneakers.',
+                showDenyButton: true,
+                denyButtonText: 'Pick for me',
+            })
+            .then(result => {
+                if(!result.isConfirmed){ //pick for the user
+                    for(let i = 0; i < (5 - selectedShoes.length);){ //loop 5 times, subtract already selected
+                        const random = Math.floor(Math.random() * checkboxes.length); //generate random number to use as index in checkboxes array
+                        const selectedCheckbox = checkboxes[random];
+                        if(selectedCheckbox.checked) return; //if checkbox has already been selected redo loop without increasing i
+                        else{
+                            selectedCheckbox.checked = true;
+                            i++;
+                        }
+                    }
+                }
+            });
+            return;
+        }
         //underscores added for consistancy when reading saved shoes
-        document.cookie = '_' + selectedShoes.join('_') + '_';
+        document.cookie = 'sneakers=_' + selectedShoes.join('_') + '_';
         if(i == 1) window.location.replace('/price');
     });
 }

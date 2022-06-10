@@ -1,0 +1,2 @@
+forced user to select <5 sneakers
+moved sneaker list into server side json

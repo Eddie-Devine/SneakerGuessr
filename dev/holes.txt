@@ -1,4 +1,0 @@
-user can select <10 sneakers
-user can go to game without cookie
-
-need to update with status codes
