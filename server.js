@@ -3,11 +3,19 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
-const cookieParser = require('cookie-parser');
+//read sneakers.json
+let allowedSneakers;
+fs.readFile('sneakers.json', (err, data) => {
+    data = JSON.parse(data);
+    allowedSneakers = data.sneakers;
+    console.log('Read in sneakers.json');
+});
 
 //server setup
 const app = express();
+const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 //routes for files
@@ -18,6 +26,12 @@ app.get('/price', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pri
 
 //request sneaker data
 app.get('/sneaker', (req, res) => {
+    if(!req.query.sneaker){
+        return res.status(422).send('Request was missing a sneaker parameter.');
+    }
+    else if(!allowedSneakers.includes(req.query.sneaker)){ //if requested sneaker is not whitelisted
+        return res.status(422).send(`The requested sneaker "${req.query.sneaker}" could not be verified.`);
+    }
     const sneaker = req.query.sneaker + ' '; //added space to sort out non perfect matches
 
     sneaks.getProducts(sneaker, 10, function(err, products){

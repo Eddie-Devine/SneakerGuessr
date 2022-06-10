@@ -3,7 +3,7 @@ const keyPadRow = document.querySelector('.keyPadRow');
 if('ontouchstart' in document.documentElement) keyPadRow.classList.remove('d-none'); //if touch scree reveal touchpad 
 document.addEventListener('touchstart', event => keyPadRow.classList.remove('d-none')); //if user touches screen reveal touchpad
 
-const newSneaker = () => {
+const newSneaker = async () => {
     sneakerImage.src = '/images/Loading.gif';
     sneakerName.innerText = 'Loading...';
     textBox.value = '';
@@ -11,14 +11,23 @@ const newSneaker = () => {
     console.log(sneakerList);
     sneaker = sneakerList[0]; //pick first sneaker out of curated sneaker list
     sneaker = sneaker.replace(/\s/g, '+'); //replace all spaces with + for http query
-    fetch(`/sneaker?sneaker=${sneaker}`)
-        .then(response => response.json())
-        .then(data => {
-            sneakerImage.src = data.thumbnail; //change image to new sneaker
-            sneakerName.innerText = data.shoeName;
-            price = data.retailPrice; //change price to new sneaker
-            allowGuess = true; //allow user to guess for new sneaker
-        });
+
+    let response = await fetch(`/sneaker?sneaker=${sneaker}`);
+    if(response.status == 200){ //server liked request
+        response = await response.json();
+        sneakerImage.src = response.thumbnail; //change image to new sneaker
+        sneakerName.innerText = response.shoeName; //update sneaker name
+        price = response.retailPrice; //change price to new sneaker
+        allowGuess = true; //allow user to guess for new sneaker
+    }
+    else{ //something went wrong
+        Swal.fire({
+            title: 'Something went wrong...',
+            html: `${await response.text()}<br>(code ${response.status})`,
+            icon: 'error',
+            confirmButtonText: 'Try Again',
+        }).then(() => window.location.href = '/');
+    }
 }
 
 const checkGuess = () => {
@@ -37,16 +46,23 @@ const checkGuess = () => {
         newSneaker();
     }
     else if(guess < minGuess){ //guess it too low
-        alert('too low');
+        hint.innerText = 'higher';
+        hint.classList.add('higher'); //trigger animation
+
+        setTimeout(() => hint.classList.remove('higher'), 1310); //remove class after animation is finished
     }
     else{ //guess is too high
-        alert('too high');
+        hint.innerText = 'lower';
+        hint.classList.add('lower'); //trigger animation
+
+        setTimeout(() => hint.classList.remove('lower'), 1310); //remove class after animation is finished
     }
 }
 
 const progressBar = document.querySelector('.bar')
 const sneakerImage = document.querySelector('.sneakerImage');
 const sneakerName = document.querySelector('.name');
+const hint = document.querySelector('.hint');
 const textBox = document.querySelector('.textBox');
 textBox.select(); //select text box for user
 

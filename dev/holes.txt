@@ -1,6 +1,4 @@
-user can send empty sneaker req
 user can select <10 sneakers
 user can go to game without cookie
-user can req illigal sneaker
 
 need to update with status codes
