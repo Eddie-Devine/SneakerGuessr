@@ -1,6 +1,6 @@
 //add keypad of user is on mobile
 const keyPadRow = document.querySelector('.keyPadRow');
-if('ontouchstart' in document.documentElement) keyPadRow.classList.remove('d-none'); //if touch scree reveal touchpad 
+if('ontouchstart' in document.documentElement) keyPadRow.classList.remove('d-none'); //if touch screen reveal touchpad 
 document.addEventListener('touchstart', event => keyPadRow.classList.remove('d-none')); //if user touches screen reveal touchpad
 
 const newSneaker = async () => {

@@ -20,6 +20,10 @@ html, body {
     height: 100%;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 @font-face {
     font-family: 'roboto';
     src: URL('../fonts/roboto.ttf') format('truetype');

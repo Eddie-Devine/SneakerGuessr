@@ -22,12 +22,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', res => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.get('/js/sneakers.js', (req, res) => {
-    let sneakerStr = '';
-    allowedSneakers.forEach(sneaker => sneakerStr += `'${sneaker}', `);
-    res.status(200).send(`const sneakers = [${sneakerStr}];`);
+//summary page
+app.get('/summary', (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, 'public', 'summary.html'));
 });
 
+//price game
 app.get('/price', (req, res) => {
     console.log(req.cookies.sneakers);
     //console.log((req.cookies.sneakers.match(/_/g) < 6));
@@ -36,6 +36,13 @@ app.get('/price', (req, res) => {
         return res.redirect('/'); //send user to start screen
     }
     res.sendFile(path.join(__dirname, 'public', 'priceGame.html'));
+});
+
+//format json file into js file for front end
+app.get('/js/sneakers.js', (req, res) => {
+    let sneakerStr = '';
+    allowedSneakers.forEach(sneaker => sneakerStr += `'${sneaker}', `);
+    res.status(200).send(`const sneakers = [${sneakerStr}];`);
 });
 
 //request sneaker data
