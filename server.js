@@ -56,8 +56,12 @@ app.get('/sneaker', (req, res) => {
     const sneaker = req.query.sneaker + ' '; //added space to sort out non perfect matches
 
     sneaks.getProducts(sneaker, 10, function(err, products){
-        const random = Math.floor(Math.random() * products.length);
-        const selectedSneaker = products[random];
+        let cleanedProducts = []; //array of usable products
+        products.forEach(product => { //sort out unusable products
+            if(product.retailPrice) cleanedProducts.push(product);
+        });
+        let random = Math.floor(Math.random() * products.length); //create random number for index
+        const selectedSneaker = cleanedProducts[random]; //select random product
         console.log(selectedSneaker);
 
         res.status(200).send(JSON.stringify(selectedSneaker));

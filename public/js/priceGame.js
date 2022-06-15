@@ -16,6 +16,14 @@ const newSneaker = async () => {
     if(response.status == 200){ //server liked request
         response = await response.json();
 
+        //repeat sneaker preventer
+        let prevousSneakers = []; //array of prevous sneakers names
+        for(let i = 0; i < gameData.questionData.length; i++) prevousSneakers.push(gameData.questionData[i].sneakerData.shoeName); //from gameData add all prevous question sneaker names
+        for(let i = 0; i < prevousSneakers.length; i++){ //go through prevous sneakers
+            //if(prevousSneakers[i] == response.shoeName) return newSneaker(); //if requested sneaker was already used stop and request new sneaker
+            if(prevousSneakers[i] == response.shoeName) return alert('Repeat sneaker found, requesting new');
+        }
+
         //update game data
         let questionObject = {
             sneakerData: {
@@ -32,18 +40,19 @@ const newSneaker = async () => {
         }
 
         //add store prices if given by sneaks API
-        if(response.lowestResellPrice.stockX) questionObject.sneakerData.SXPrice = response.lowestResellPrice.stockX;
-        if(response.lowestResellPrice.goat) questionObject.sneakerData.GPrice = response.lowestResellPrice.goat;
-        if(response.lowestResellPrice.flightClub) questionObject.sneakerData.FCPrice = response.lowestResellPrice.flightClub;
+        if(response.lowestResellPrice.stockX) questionObject.sneakerData.stockXPrice = response.lowestResellPrice.stockX;
+        if(response.lowestResellPrice.goat) questionObject.sneakerData.goatPrice = response.lowestResellPrice.goat;
+        if(response.lowestResellPrice.flightClub) questionObject.sneakerData.fightClubPrice = response.lowestResellPrice.flightClub;
 
         //add store links if given by sneaks API
-        if(response.resellLinks.stockX) questionObject.sneakerData.SXLink = response.resellLinks.stockX;
-        if(response.resellLinks.flightClub) questionObject.sneakerData.FCLink = response.resellLinks.flightClub;
-        if(response.resellLinks.goat) questionObject.sneakerData.GLink = response.resellLinks.goat;
+        if(response.resellLinks.stockX) questionObject.sneakerData.stockXLink = response.resellLinks.stockX;
+        if(response.resellLinks.flightClub) questionObject.sneakerData.fightClubLink = response.resellLinks.flightClub;
+        if(response.resellLinks.goat) questionObject.sneakerData.goatLink = response.resellLinks.goat;
         
         gameData.questionData.push(questionObject);
         gameData.sneakerList = sneakerList;
-        document.cookie = 'gameData=' + JSON.stringify(gameData);
+        //document.cookie = 'gameData=' + JSON.stringify(gameData);
+        localStorage.setItem('gameData', JSON.stringify(gameData));
         console.log(`Added ${gameData.questionData[gameData.questionData.length - 1].sneakerData.shoeName}`);
 
         time = true; //start timing user
@@ -70,6 +79,9 @@ const checkGuess = () => {
 
     let guess = textBox.value;
 
+    gameData.questionData[gameData.questionData.length - 1].guesses.push(guess);
+    localStorage.setItem('gameData', JSON.stringify(gameData));
+
     const minGuess = price - 20;
     const maxGuess = price + 20;
 
@@ -94,7 +106,7 @@ const checkGuess = () => {
     }
 }
 
-function getCookie(name) {
+const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if(parts.length === 2) return parts.pop().split(';').shift();
@@ -123,7 +135,7 @@ let time = false;
 let price;
 
 //if gameData has not been set (new game)
-if(!getCookie('gameData')){
+if(!localStorage.getItem('gameData')){
     //create gameData
     var gameData = {
         sneakerList: sneakerList,
@@ -132,7 +144,7 @@ if(!getCookie('gameData')){
     newSneaker(); //start game by pulling first sneaker data
 }
 else { //resume game
-    var gameData = JSON.parse(getCookie('gameData'));
+    var gameData = JSON.parse(localStorage.getItem('gameData'));
     sneakerList = gameData.sneakerList;
     progressBar.style.width = `${(5 - sneakerList.length)*20}%`;
     
@@ -142,6 +154,7 @@ else { //resume game
     allowGuess = true; //allow user to guess for new sneaker
 }
 
+//dev cheat
 window.addEventListener('keydown', event => {
     if(event.keyCode == 192) textBox.value = price;
 });

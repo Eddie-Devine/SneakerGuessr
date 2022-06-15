@@ -1,2 +1,3 @@
-forced user to select <5 sneakers
-moved sneaker list into server side json
+changed gameData storage from cookies to local storage
+added gameData guess tracker
+server sorts out bad API data

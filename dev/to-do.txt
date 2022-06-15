@@ -3,6 +3,6 @@ year game (year range)
 
 play again button on summary
 summary images border radius
-summary creator (remove final details on mobile)
+summary creator (remove final details on mobile) + set div height
 
-!! game data not getting into cookies late game
+remove dev cheat
