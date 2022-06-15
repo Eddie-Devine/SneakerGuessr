@@ -1,9 +1,8 @@
-make game refreshable (cookies?)
-add game finished screen shoes with name, description, price, image, time. total time, play again, share (link to buy screen?)
 name game (sort out all fluff)
 year game (year range)
 
-summary mobile
-    name from vw to vh
-    allow text to expand div height
-    undo sneakDescRow max height
+play again button on summary
+summary images border radius
+summary creator (remove final details on mobile)
+
+!! game data not getting into cookies late game
