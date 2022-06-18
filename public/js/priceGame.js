@@ -3,12 +3,20 @@ const keyPadRow = document.querySelector('.keyPadRow');
 if('ontouchstart' in document.documentElement) keyPadRow.classList.remove('d-none'); //if touch screen reveal touchpad 
 document.addEventListener('touchstart', event => keyPadRow.classList.remove('d-none')); //if user touches screen reveal touchpad
 
+const errorAlert = (str, code) => {
+    Swal.fire({
+        title: 'Something went wrong...',
+        html: `${str}<br>(code ${code})`,
+        icon: 'error',
+        confirmButtonText: 'Try Again',
+    }).then(() => window.location.href = '/');
+}
+
 const newSneaker = async () => {
+    if(!sneakerList.length) location.replace('/summary');
     sneakerImage.src = '/images/Loading.gif';
     sneakerName.innerText = 'Loading...';
     textBox.value = '';
-    if(!sneakerList.length) return alert('done!'); //end game when out of sneakers
-    console.log(sneakerList);
     sneaker = sneakerList[0]; //pick first sneaker out of curated sneaker list
     sneaker = sneaker.replace(/\s/g, '+'); //replace all spaces with + for http query
 
@@ -53,7 +61,6 @@ const newSneaker = async () => {
         gameData.sneakerList = sneakerList;
         //document.cookie = 'gameData=' + JSON.stringify(gameData);
         localStorage.setItem('gameData', JSON.stringify(gameData));
-        console.log(`Added ${gameData.questionData[gameData.questionData.length - 1].sneakerData.shoeName}`);
 
         time = true; //start timing user
 
@@ -63,14 +70,7 @@ const newSneaker = async () => {
         price = response.retailPrice; //change price to new sneaker
         allowGuess = true; //allow user to guess for new sneaker
     }
-    else{ //something went wrong
-        Swal.fire({
-            title: 'Something went wrong...',
-            html: `${await response.text()}<br>(code ${response.status})`,
-            icon: 'error',
-            confirmButtonText: 'Try Again',
-        }).then(() => window.location.href = '/');
-    }
+    else errorAlert(await response.text(), response.status); //something went wron, alert user
 }
 
 const checkGuess = () => {

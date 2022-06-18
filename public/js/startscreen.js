@@ -20,36 +20,53 @@ sneakers.forEach(sneaker => {
 });
 
 const startButtons = document.querySelectorAll('.start');
-for(let i = 0; i < 3; i++){ //used for loop to know which link to redirect to (based off of i)
-    startButtons[i].addEventListener('click', () => {
-        let selectedShoes = [];
-        const checkboxes = document.querySelectorAll('input[type=checkbox]')
-        checkboxes.forEach(checkbox => {
-            if(checkbox.checked) selectedShoes.push(checkbox.name);
-        });
-        if(selectedShoes.length < 5){
-            Swal.fire({
-                text: 'Please select more than 5 sneakers.',
-                showDenyButton: true,
-                denyButtonText: 'Pick for me',
-            })
-            .then(result => {
-                if(!result.isConfirmed){ //pick for the user
-                    for(let i = 0; i < (5 - selectedShoes.length);){ //loop 5 times, subtract already selected
-                        const random = Math.floor(Math.random() * checkboxes.length); //generate random number to use as index in checkboxes array
-                        const selectedCheckbox = checkboxes[random];
-                        if(selectedCheckbox.checked) return; //if checkbox has already been selected redo loop without increasing i
-                        else{
-                            selectedCheckbox.checked = true;
-                            i++;
-                        }
+
+document.querySelector('.start').addEventListener('click', () => {
+    //get selected shoes from checkboxes
+    let selectedShoes = [];
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    checkboxes.forEach(checkbox => {
+        if(checkbox.checked) selectedShoes.push(checkbox.name);
+    });
+
+    //handle when less than 5 checkboxes are checked
+    if(selectedShoes.length < 5){
+        Swal.fire({
+            text: 'Please select more than 5 sneakers.',
+            showDenyButton: true,
+            denyButtonText: 'Pick for me',
+        })
+        .then(result => {
+            if(!result.isConfirmed){ //pick for the user
+                for(let i = 0; i < (5 - selectedShoes.length);){ //loop 5 times, subtract already selected
+                    const random = Math.floor(Math.random() * checkboxes.length); //generate random number to use as index in checkboxes array
+                    const selectedCheckbox = checkboxes[random];
+                    if(selectedCheckbox.checked) return; //if checkbox has already been selected redo loop without increasing i
+                    else{
+                        selectedCheckbox.checked = true;
+                        i++;
                     }
                 }
-            });
-            return;
-        }
-        //underscores added for consistancy when reading saved shoes
-        document.cookie = 'sneakers=_' + selectedShoes.join('_') + '_';
-        if(i == 1) window.location.replace('/price');
-    });
-}
+            }
+        });
+        return; //close event listener so user can retry
+    }
+
+    //underscores added for consistancy when reading saved shoes
+    document.cookie = 'sneakers=_' + selectedShoes.join('_') + '_';
+
+    //handle saved games and start game
+    if(localStorage.getItem('gameData')){ //already started game detected
+        Swal.fire({
+            title: 'Saved game detected',
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: 'New game',
+            confirmButtonText: 'Resume game'
+        }).then(result => {
+            if(!result.isConfirmed) localStorage.removeItem('gameData'); //delete gameData to trigger new game
+            location.replace('/price'); //send to game
+        });
+    }
+    else location.replace('/price'); //send to game if no saved game already
+});

@@ -29,8 +29,6 @@ app.get('/summary', (req, res) => {
 
 //price game
 app.get('/price', (req, res) => {
-    console.log(req.cookies.sneakers);
-    //console.log((req.cookies.sneakers.match(/_/g) < 6));
     if(!req.cookies.sneakers || (req.cookies.sneakers.match(/_/g).length < 6)){ //if sneakers cookie does not exist or sneaker cookie is less than 5 sneakers
 
         return res.redirect('/'); //send user to start screen
@@ -62,7 +60,6 @@ app.get('/sneaker', (req, res) => {
         });
         let random = Math.floor(Math.random() * products.length); //create random number for index
         const selectedSneaker = cleanedProducts[random]; //select random product
-        console.log(selectedSneaker);
 
         res.status(200).send(JSON.stringify(selectedSneaker));
     });
@@ -71,11 +68,3 @@ app.get('/sneaker', (req, res) => {
 //start listening for requests
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}.`));
-
-// sneaks.getProducts("Jordan 1", 10, function(err, products){
-//     console.log(products);
-// });
-
-// sneaks.getProductPrices("555088-108", function(err, product){
-//     console.log(product);
-// });
