@@ -1,8 +1,0 @@
-name game (sort out all fluff)
-year game (year range)
-
-play again button on summary
-summary images border radius
-summary creator (remove final details on mobile) + set div height
-
-remove dev cheat
